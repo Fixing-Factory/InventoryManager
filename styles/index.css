@@ -1,0 +1,74 @@
+h1, h2 {
+  font-weight: 500;
+}
+
+h1 {
+  font-size: 1.7rem;
+}
+
+.form-input-box {
+  padding-bottom: 1vh;
+}
+
+label {
+  display: inline;
+}
+
+form {
+  font-size: 1.2rem;
+}
+
+input {
+  display: block;
+  font-family: "Poppins", sans-serif;
+  font-size: 1.1rem;
+}
+
+select {
+  display: block;
+  font-family: "Poppins", sans-serif;
+  font-size: 1.1rem;
+}
+
+button {
+  margin-top: 4vh;
+  margin-bottom: 4vh;
+  padding: 2vh;
+  display: block;
+  font-family: "Poppins", sans-serif;
+  font-size: 1rem;
+}
+
+input[type="checkbox"] {
+  width: 4vh;
+  height: 4vh;
+  margin: 0;
+}
+
+input[type="number"] {
+  width: 10rem;
+}
+
+.disabled {
+  display: none !important;
+}
+
+#advisory-dialog {
+  position: absolute;
+  box-sizing: border-box;
+  width: 96vw;
+  top: 13vh;
+  margin: 2vw 2vw;
+  left: 0;
+  height: 72vh;
+  color: white;
+  background-color: var(--secondary-bg-colour);
+}
+
+.dialog-paragraph a {
+  color: var(--primary-bg-colour);
+}
+
+#dialog-nav button{
+  display: inline;
+}
