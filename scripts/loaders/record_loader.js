@@ -1,18 +1,21 @@
-import { TestFileFetcher } from "../fetchers/test_file_fetcher.js"
+import { SpreadsheetRecordFetcher } from "../fetchers/spreadsheet_record_fetcher.js"
 
 export class RecordLoader {
   constructor() {
     this.idInput = document.getElementById('item-id')
     this.brandName = document.getElementById('brand-name')
     this.itemType = document.getElementById('item-type')
-    this.recordFetcher = new TestFileFetcher()
+    this.recordFetcher = new SpreadsheetRecordFetcher()
   }
 
   async loadRecordData() {
-    const itemRecord = await this.recordFetcher.loadData()
+    const params = new URLSearchParams(location.search.substring(1))
+    const recordId = params.get("record-id")
+
+    const itemRecord = await this.recordFetcher.loadRecord(recordId)
 
     this.idInput.textContent = itemRecord.id
-    this.brandName.textContent = itemRecord.brand_name
-    this.itemType.textContent = itemRecord.item_type
+    this.brandName.textContent = itemRecord.brandName
+    this.itemType.textContent = itemRecord.itemType
   }
 }

@@ -5,14 +5,16 @@ export class GoogleAuthenticationClient {
   }
 
   async fetchToken() {
-    const localAccessToken =  localStorage.getItem("access-token")
+    const localAccessToken =  localStorage.getItem("google-access-token")
 
     if (!localAccessToken) {
       const urlAccessToken = this.checkUrlForToken()
       if (!urlAccessToken) {
         this.requestGoogleAuthentication()
       }
+      return urlAccessToken
     }
+    return localAccessToken
   }
 
   checkUrlForToken() {
@@ -22,7 +24,7 @@ export class GoogleAuthenticationClient {
     const accessToken = params.get("access_token")
 
     if (accessToken) {
-      localStorage.setItem("google-auth-token", accessToken)
+      localStorage.setItem("google-access-token", accessToken)
       return accessToken
     }
   }
