@@ -14,22 +14,30 @@
 </head>
 
 <body>
-  <header id="header">Loading Item Details...</header>
+  <header id="header">
+    <h1>Logging Details</h1>
+    <form id="record-lookup" method="get" action="/">
+      <input type="text" name="record-id" placeholder="Enter an Item's ID"/>
+      <button>Load Item</button>
+    </form>
+  </header>
 
   <nav id="nav">
-    <a onclick="window.location='/'+window.location.search;">Main</a>
+    <a onclick="window.location='/'+window.location.search;">Logging</a>
     <a onclick="window.location='/testing.html'+window.location.search;">Testing</a>
     <a onclick="window.location='/fixing.html'+window.location.search;">Fixing</a>
   </nav>
 
-  <main id="main-details">
+  <dialog id="warning-message" class="disabled"></dialog>
+
+  <main id="item-details" class="disabled">
     <section>
       <h2>Inventory Item Identifier</h2>
       <p id="item-id"></p>
     </section>
 
     <section>
-      <h2>Timestamp When Originally Logged</h2>
+      <h2>Logged Timestamp</h2>
       <p id="logged-timestamp"></p>
     </section>
 

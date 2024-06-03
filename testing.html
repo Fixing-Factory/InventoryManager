@@ -14,10 +14,16 @@
 </head>
 
 <body>
-  <header id="header">Loading Item Details...</header>
+  <header id="header">
+    <h1>Testing Details</h1>
+    <form id="item-id" method="get" action="/testing.html">
+      <input type="text" name="record-id" placeholder="Enter an Item's ID"/>
+      <button>Load Item</button>
+    </form>
+  </header>
 
   <nav id="nav">
-    <a onclick="window.location='/'+window.location.search;">Main</a>
+    <a onclick="window.location='/'+window.location.search;">Logging</a>
     <a onclick="window.location='/testing.html'+window.location.search;">Testing</a>
     <a onclick="window.location='/fixing.html'+window.location.search;">Fixing</a>
   </nav>

@@ -1,5 +1,4 @@
 import { GoogleAuthenticationClient } from "../auth/google_authentication_client.js"
-import { RegisItemViewModel } from "../data/regisItemViewModel.js"
 
 export class SpreadsheetRecordFetcher {
   constructor() {
@@ -10,22 +9,27 @@ export class SpreadsheetRecordFetcher {
     this.idColumnNumber = 2
   }
 
-  async loadRecord(recordId) {
+  async loadRecordRow(recordId) {
     const request = new Request(this.buildSheetUrl())
     const accessToken = await this.googleAuthclient.fetchToken()
 
     request.headers.set("Authorization", `Bearer ${accessToken}`)
 
-    const response = await fetch(request).catch((reason) => { 
-      console.log(```
+    const response = await fetch(request).then((response) => {
+      if (response.ok) {
+        return response.json();
+      }
+      return Promise.reject(response); 
+    }).catch((reason) => { 
+      console.log(`
       Spreadsheet Read Request Failed: ${reason}. 
       Requesting new access token...
-      ```); 
+      `); 
+      localStorage.clear("google-access-token")
       this.googleAuthclient.requestGoogleAuthentication() 
     })
-    const responseJson = await response.json()
 
-    const rows = responseJson.values
+    const rows = response.values
 
     return this.findRecordbyId(recordId, rows)
   }
@@ -33,9 +37,11 @@ export class SpreadsheetRecordFetcher {
   findRecordbyId(recordId, rows) {
     const filteredRows = rows.filter((row) => row[this.idColumnNumber - 1] === recordId);
 
-    const targetRow = filteredRows[0]
+    if (filteredRows.length != 0) {
+      const targetRow = filteredRows[0]
 
-    return new RegisItemViewModel(targetRow)
+      return targetRow
+    }
   }
 
   buildSheetUrl() {

@@ -1,74 +1,81 @@
-h1, h2 {
-  font-weight: 500;
-}
-
-h1 {
-  font-size: 1.7rem;
-}
-
-.form-input-box {
-  padding-bottom: 1vh;
-}
-
-label {
+header {
+  font-size: 2.5rem;
+  margin-bottom: 2vh;
   display: inline;
 }
 
-form {
+h1 {
+  font-size: 2.5rem;
+  margin: 0vh;
+}
+
+nav {
+  font-size: 2rem;
+}
+
+a {
+  background-color: var(--secondary-bg-colour);
+  border-radius: 1vw;
+  padding: 1vh 1vw;
+  cursor: pointer;
+}
+
+a:hover {
+  color: var(--primary-bg-colour);
+}
+
+h2 {
   font-size: 1.2rem;
+  font-weight: 500;
+  margin: 1vh 0;
 }
 
-input {
-  display: block;
-  font-family: "Poppins", sans-serif;
-  font-size: 1.1rem;
-}
-
-select {
-  display: block;
-  font-family: "Poppins", sans-serif;
-  font-size: 1.1rem;
-}
-
-button {
-  margin-top: 4vh;
-  margin-bottom: 4vh;
-  padding: 2vh;
-  display: block;
-  font-family: "Poppins", sans-serif;
-  font-size: 1rem;
-}
-
-input[type="checkbox"] {
-  width: 4vh;
-  height: 4vh;
-  margin: 0;
-}
-
-input[type="number"] {
-  width: 10rem;
+p {
+  font-size: 1.2rem;
+  margin: 1vh 0 ;
 }
 
 .disabled {
   display: none !important;
 }
 
-#advisory-dialog {
-  position: absolute;
-  box-sizing: border-box;
-  width: 96vw;
-  top: 13vh;
-  margin: 2vw 2vw;
-  left: 0;
-  height: 72vh;
-  color: white;
+section {
   background-color: var(--secondary-bg-colour);
+  border-radius: 1vw;
+  padding: 0.1vh 1vw;
+  width: fit-content;
+  margin-top: 1vw;
 }
 
-.dialog-paragraph a {
-  color: var(--primary-bg-colour);
-}
-
-#dialog-nav button{
+input {
   display: inline;
+  font-family: "Poppins", sans-serif;
+  font-size: 1.25rem;
+}
+
+button {
+  padding: 0.75vh 1vw;
+  border-radius: 0.25vw;
+  display: inline;
+  font-family: "Poppins", sans-serif;
+  font-size: 1.25rem;
+}
+
+form {
+  margin-bottom: 2vh;
+}
+
+dialog {
+  display: block;
+  margin: 0;
+  position: relative;
+  margin: 5vh 0;
+}
+
+.disabled {
+  visibility: hidden;
+}
+
+.enabled {
+  visibility: visible;
 }

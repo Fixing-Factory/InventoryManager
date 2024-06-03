@@ -8,11 +8,7 @@ export class GoogleAuthenticationClient {
     const localAccessToken =  localStorage.getItem("google-access-token")
 
     if (!localAccessToken) {
-      const urlAccessToken = this.checkUrlForToken()
-      if (!urlAccessToken) {
-        this.requestGoogleAuthentication()
-      }
-      return urlAccessToken
+      this.requestGoogleAuthentication()
     }
     return localAccessToken
   }
@@ -30,18 +26,23 @@ export class GoogleAuthenticationClient {
   }
 
   buildRedirectUri() {
-    // We redirect straight back to the current page
-    return location.href
+    return `${location.origin}/authcallback.html`
   }
 
   async requestGoogleAuthentication() {
+    const queryparams = new URLSearchParams(location.search.substring(1))
+    const recordId = queryparams.get("record-id")
+    recordId && localStorage.setItem("previous-record-id", recordId)
+    const page = location.pathname
+    localStorage.setItem("previous-page", page)
+
     // Create element to open OAuth 2.0 endpoint in new window.
     var form = document.createElement('form');
     form.setAttribute('method', 'GET')
     form.setAttribute('action', this.oauth2Endpoint)
 
     // Parameters to pass to OAuth 2.0 endpoint.
-    var params = {
+    var formParams = {
       'client_id': this.clientId,
       'redirect_uri': this.buildRedirectUri(),
       'scope': "https://www.googleapis.com/auth/spreadsheets",
@@ -49,11 +50,11 @@ export class GoogleAuthenticationClient {
     }
 
     // Add form parameters as hidden input values.
-    for (var p in params) {
+    for (var p in formParams) {
       var input = document.createElement('input')
       input.setAttribute('type', 'hidden')
       input.setAttribute('name', p)
-      input.setAttribute('value', params[p])
+      input.setAttribute('value', formParams[p])
       form.appendChild(input)
     }
 
