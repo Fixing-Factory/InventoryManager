@@ -26,7 +26,7 @@ export class GoogleAuthenticationClient {
   }
 
   buildRedirectUri() {
-    return `${location.origin}/authcallback.html`
+    return `${location.origin}${location.path}/authcallback.html`
   }
 
   async requestGoogleAuthentication() {
