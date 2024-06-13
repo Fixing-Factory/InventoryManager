@@ -7,10 +7,11 @@
   <title>Inventory Manager</title>
   <link rel="icon" type="image/x-icon" href="./static/images/favicon.png">
   <script src="https://apis.google.com/js/api.js"></script>
-  <script src="./scripts/index.js" type="module" defer></script>
   <link rel="stylesheet" href="./styles/common.css">
   <link rel="stylesheet" href="./styles/index.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
+
+  <script src="./scripts/fixing.js" type="module" defer></script>
 </head>
 
 <body>
@@ -23,12 +24,14 @@
   </header>
 
   <nav id="nav">
-    <a onclick="window.location='/'+window.location.search;">Logging</a>
-    <a onclick="window.location='/testing.html'+window.location.search;">Testing</a>
-    <a onclick="window.location='/fixing.html'+window.location.search;">Fixing</a>
+    <a onclick="window.location='../'+window.location.search;">Logging</a>
+    <a onclick="window.location='../testing.html'+window.location.search;">Testing</a>
+    <a onclick="window.location='../fixing.html'+window.location.search;">Fixing</a>
   </nav>
 
-  <main id="test-results">
+  <dialog id="warning-message" class="disabled"></dialog>
+
+  <main id="item-details" class="disabled">
     <section>
       <h2>Name of Fixer</h2>
       <p id="fixer-name"></p>

@@ -1,7 +1,9 @@
+import { LoggingDetailsViewModel } from "../data/loggingDetailsViewModel.js"
+
 export class LoggingDetailsManager {
   constructor() {
     this.timestamp = document.getElementById('logged-timestamp')
-    this.idInput = document.getElementById('item-id')
+    this.id = document.getElementById('item-id')
     this.brandName = document.getElementById('brand-name')
     this.itemType = document.getElementById('item-type')
     this.modelNumber = document.getElementById('model-number')
@@ -9,11 +11,12 @@ export class LoggingDetailsManager {
   }
 
   populateDetails(row) {
-    this.timestamp.textContent = row[0]
-    this.idInput.textContent = row[1]
-    this.brandName.textContent = row[2]
-    this.itemType.textContent = row[3]
-    this.modelNumber.textContent = row[4]
-    this.weight.textContent = row[5]
+    const viewModel = new LoggingDetailsViewModel(row)
+    this.timestamp.textContent = viewModel.timestamp
+    this.id.textContent = viewModel.id
+    this.brandName.textContent = viewModel.brandName
+    this.itemType.textContent = viewModel.itemType
+    this.modelNumber.textContent = viewModel.modelNumber
+    this.weight.textContent = viewModel.weight
   }
 }

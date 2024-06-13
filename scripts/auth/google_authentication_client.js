@@ -26,7 +26,18 @@ export class GoogleAuthenticationClient {
   }
 
   buildRedirectUri() {
-    return `${location.origin}${location.pathname}authcallback.html`
+    let pathName = location.pathname
+    
+    if (pathName.endsWith(".html")) {
+      const endFileNameStart = location.pathname.lastIndexOf("/")
+      pathName = pathName.substring(0, endFileNameStart)
+    }
+
+    if (pathName[pathName.length] !== "/"){
+      pathName += "/"
+    }
+
+    return `${location.origin}${pathName}authcallback.html`
   }
 
   async requestGoogleAuthentication() {
