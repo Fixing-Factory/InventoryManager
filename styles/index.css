@@ -11,13 +11,19 @@ h1 {
 
 nav {
   font-size: 2rem;
+  display: flex;
+  flex-wrap: wrap;
 }
 
 a {
   background-color: var(--secondary-bg-colour);
-  border-radius: 1vw;
+  border-radius: 2vh;
   padding: 1vh 1vw;
+  margin-right: 1vw;
+  margin-top: 1vh;
   cursor: pointer;
+  text-align: center;
+  flex: 1 0 0;
 }
 
 a:hover {
@@ -46,16 +52,20 @@ p {
 
 section {
   background-color: var(--secondary-bg-colour);
-  border-radius: 1vw;
-  padding: 0.1vh 1vw;
+  border-radius: 2vh;
+  padding: 0.7vh 1vw;
   width: fit-content;
   margin-top: 1vw;
 }
 
-input {
+input, select, option, textarea, label {
   display: inline;
   font-family: "Poppins", sans-serif;
   font-size: 1.25rem;
+}
+
+select {
+  max-width: 90vw;
 }
 
 button {

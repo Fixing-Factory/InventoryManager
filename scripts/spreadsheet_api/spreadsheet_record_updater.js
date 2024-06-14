@@ -15,6 +15,39 @@ export class SpreadsheetRecordUpdater {
     await this.updateRecordLoggingDetails(loggingDetails, 104)
   }
 
+  async updateRecordTestingDetails(tesingDetails, rowNumber) {
+    const params = {
+      "valueInputOption": "USER_ENTERED",
+    }
+    const queryParams = new URLSearchParams(params)
+    const request = new Request(this.buildSheetUrl(rowNumber, 7, 9, queryParams))
+    const accessToken = await this.googleAuthclient.fetchToken()
+
+    await fetch(request, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        "Authorization": `Bearer ${accessToken}`
+      },
+      body: JSON.stringify({
+        "values": [
+          [
+            tesingDetails.testingStatus,
+            tesingDetails.testingNotes,
+            tesingDetails.patStatusBefore
+          ]
+        ]
+      })
+    }).then((response) => {
+      if (response.ok) {
+        return response.json();
+      }
+      return Promise.reject(response); 
+    }).catch((reason) => { 
+      this.handleResponseError(reason)
+    })
+  }
+
   async updateRecordLoggingDetails(loggingDetails, rowNumber) {
     const params = {
       "valueInputOption": "USER_ENTERED",

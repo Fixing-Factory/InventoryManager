@@ -139,6 +139,40 @@
 
       <button type="submit">Update Item!</button>
     </form>
+
+    <form id="testing-details-edit" class="disabled">
+      <section>
+        <label>Testing Status:</label>
+        <select name="testing-status-edit" id="testing-status-edit" type="text">
+          <option value="TESTED - working">TESTED - working</option>
+          <option value="TESTED - not working">TESTED - not working</option>
+          <option value="NOT TESTED">NOT TESTED</option>
+          <option value="NOT TESTED - marked as challenging to test">NOT TESTED - marked as challenging to test</option>
+          <option value="PARTIALLY TESTED - see notes">PARTIALLY TESTED - see notes</option>
+          <option value="TESTED - limited functionality">TESTED - limited functionality</option>
+          <option value="TESTED - needs fix">TESTED - needs fix</option>
+          <option value="" selected>Empty</option>
+        </select>
+      </section>
+
+      <section>
+        <label>Testing Notes:</label>
+        <textarea name="testing-notes-edit" id="testing-notes-edit" rows="3" cols="18">
+        </textarea>
+      </section>
+
+      <section>
+        <label>PAT Status Before Fix:</label>
+        <select name="pat-status-before-edit" id="pat-status-before-edit">
+          <option value="Pass">Pass</option>
+          <option value="Fail">Fail</option>
+          <option value="Pass with note">Pass with note</option>
+          <option value="" selected>Empty</option>
+        </select>
+      </section>
+
+      <button type="submit">Update Item!</button>
+    </form>
   </div>
 </body>
 

@@ -5,6 +5,8 @@ export class ItemDetailsManager {
     this.itemDetailsElement = document.getElementById("item-details")
     this.fixingDetailsElement = document.getElementById("fixing-details")
     this.testingDetailsElement = document.getElementById("testing-details")
+    this.loggingDetailsEditElement = document.getElementById("logging-details-edit")
+    this.testingDetailsEditElement = document.getElementById("testing-details-edit")
 
     this.loggingDetailsButton = document.getElementById("logging-button")
     this.fixingDetailsButton = document.getElementById("fixing-button")
@@ -44,19 +46,25 @@ export class ItemDetailsManager {
 
   displayItemDetails() {
     this.itemDetailsElement.className = "enabled"
-    this.fixingDetailsElement.className = "disabled"
+    this.loggingDetailsEditElement.className = "enabled"
     this.testingDetailsElement.className = "disabled"
+    this.testingDetailsEditElement.className = "disabled"
+    this.fixingDetailsElement.className = "disabled"
   }
 
   displayTestingDetails() {
     this.itemDetailsElement.className = "disabled"
-    this.fixingDetailsElement.className = "disabled"
+    this.loggingDetailsEditElement.className = "disabled"
     this.testingDetailsElement.className = "enabled"
+    this.testingDetailsEditElement.className = "enabled"
+    this.fixingDetailsElement.className = "disabled"
   }
 
   displayFixingDetails() {
     this.itemDetailsElement.className = "disabled"
-    this.fixingDetailsElement.className = "enabled"
+    this.loggingDetailsEditElement.className = "disabled"
     this.testingDetailsElement.className = "disabled"
+    this.testingDetailsEditElement.className = "disabled"
+    this.fixingDetailsElement.className = "enabled"
   }
 }
