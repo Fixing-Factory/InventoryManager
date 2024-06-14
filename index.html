@@ -27,6 +27,7 @@
     <a id="logging-button">Logging</a>
     <a id="testing-button">Testing</a>
     <a id="fixing-button">Fixing</a>
+    <a id="update-button">Update</a>
   </nav>
 
   <dialog id="warning-message" class="disabled"></dialog>
@@ -62,35 +63,6 @@
         <h2>Weight</h2>
         <p id="weight"></p>
       </section>
-    </main>
-
-    <form id="logging-details-edit" class="enabled">
-      <section>
-        <label>Inventory Item Identifier</label>
-        <input name="item-id-edit" id="item-id-edit" type="text"/>
-      </section>
-
-      <section>
-        <label>Brand Name</label>
-        <input name="brand-name-edit" id="brand-name-edit" type="text"/>
-      </section>
-
-      <section>
-        <label>Item Type</label>
-        <input name="item-type-edit" id="item-type-edit" type="text"/>
-      </section>
-
-      <section>
-        <label>Model Number</label>
-        <input name="model-number-edit" id="model-number-edit" type="text"/>
-      </section>
-
-      <section>
-        <label>Weight</label>
-        <input name="weight-edit" id="weight-edit" type="text"/>
-      </section>
-
-      <button type="submit">Update Item!</button>
     </main>
 
     <main id="testing-details" class="disabled">
@@ -136,6 +108,37 @@
         <p id="pat-after"></p>
       </section>
     </main>
+  </div>
+
+  <div id = "all-forms" class="disabled">
+    <form id="logging-details-edit" class="enabled">
+      <section>
+        <label>Inventory Item Identifier:</label>
+        <input name="item-id-edit" id="item-id-edit" type="text"/>
+      </section>
+
+      <section>
+        <label>Brand Name:</label>
+        <input name="brand-name-edit" id="brand-name-edit" type="text"/>
+      </section>
+
+      <section>
+        <label>Item Type:</label>
+        <input name="item-type-edit" id="item-type-edit" type="text"/>
+      </section>
+
+      <section>
+        <label>Model Number:</label>
+        <input name="model-number-edit" id="model-number-edit" type="text"/>
+      </section>
+
+      <section>
+        <label>Weight:</label>
+        <input name="weight-edit" id="weight-edit" type="text"/>
+      </section>
+
+      <button type="submit">Update Item!</button>
+    </form>
   </div>
 </body>
 
