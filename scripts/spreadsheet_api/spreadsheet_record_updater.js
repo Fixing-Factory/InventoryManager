@@ -83,6 +83,41 @@ export class SpreadsheetRecordUpdater {
     })
   }
 
+  async updateRecordFixingDetails(fixingDetails, rowNumber) {
+    const params = {
+      "valueInputOption": "USER_ENTERED",
+    }
+    const queryParams = new URLSearchParams(params)
+    const request = new Request(this.buildSheetUrl(rowNumber, 10, 14, queryParams))
+    const accessToken = await this.googleAuthclient.fetchToken()
+
+    await fetch(request, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        "Authorization": `Bearer ${accessToken}`
+      },
+      body: JSON.stringify({
+        "values": [
+          [
+            fixingDetails.patStatusAfterFix,
+            fixingDetails.fixerName,
+            fixingDetails.fixerNotes,
+            fixingDetails.diagnosis,
+            fixingDetails.partsNeeded
+          ]
+        ]
+      })
+    }).then((response) => {
+      if (response.ok) {
+        return response.json();
+      }
+      return Promise.reject(response); 
+    }).catch((reason) => { 
+      this.handleResponseError(reason)
+    })
+  }
+
   buildSheetUrl(row, fromColumn, toColumn, urlSearchParams) {
     const spreadsheetRange = `${this.sheetName}!R${row}C${fromColumn}:R${row}C${toColumn}`
     return `${this.apiBaseUrl}/spreadsheets/${this.spreadsheetid}/values/${spreadsheetRange}?${urlSearchParams.toString()}`

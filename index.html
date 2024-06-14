@@ -173,6 +173,41 @@
 
       <button type="submit">Update Item!</button>
     </form>
+
+
+    <form id="fixing-details-edit" class="disabled">
+      <section>
+        <label>Fixer:</label>
+        <input name="fixer-name-edit" id="fixer-name-edit" type="text"/>
+      </section>
+
+      <section>
+        <label>Fixer Notes:</label>
+        <input name="fixer-notes-edit" id="fixer-notes-edit" type="text"/>
+      </section>
+
+      <section>
+        <label>PAT Status After Fix:</label>
+        <select name="pat-status-after-edit" id="pat-status-after-edit">
+          <option value="Pass">Pass</option>
+          <option value="Fail">Fail</option>
+          <option value="Pass with note">Pass with note</option>
+          <option value="" selected>Empty</option>
+        </select>
+      </section>
+
+      <section>
+        <label>Diagnosis:</label>
+        <input name="diagnosis-edit" id="diagnosis-edit" type="text"/>
+      </section>
+
+      <section>
+        <label>Parts Needed:</label>
+        <input name="parts-needed-edit" id="parts-needed-edit" type="text"/>
+      </section>
+
+      <button type="submit">Update Item!</button>
+    </form>
   </div>
 </body>
 
