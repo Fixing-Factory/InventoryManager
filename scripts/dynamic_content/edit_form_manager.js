@@ -1,4 +1,4 @@
-import { TestingDetails } from "../data/testingDetails.js";
+import { TestingDetails } from "../data/testingDetails2.js";
 import { LoggingDetails } from "../data/loggingDetails.js";
 import { SpreadsheetRecordUpdater } from "../spreadsheet_api/spreadsheet_record_updater.js";
 import { FixingDetails } from "../data/fixingDetails.js";
