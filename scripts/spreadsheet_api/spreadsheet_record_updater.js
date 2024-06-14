@@ -7,7 +7,6 @@ export class SpreadsheetRecordUpdater {
     this.spreadsheetid = "1uSLeihD6gNyESoiADu6-P7Pnx3CW-3071OEZRR8dvc4"
     this.sheetName = "CURRENT Regis Road Logging"
     this.apiBaseUrl = "https://sheets.googleapis.com/v4"
-    this.idColumnNumber = 2
   }
 
   async testUpdate(){
@@ -21,10 +20,10 @@ export class SpreadsheetRecordUpdater {
       "valueInputOption": "USER_ENTERED",
     }
     const queryParams = new URLSearchParams(params)
-    const request = new Request(this.buildSheetUrl(rowNumber, 3, queryParams))
+    const request = new Request(this.buildSheetUrl(rowNumber, 2, 6, queryParams))
     const accessToken = await this.googleAuthclient.fetchToken()
 
-    const response = await fetch(request, {
+    await fetch(request, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
@@ -32,7 +31,13 @@ export class SpreadsheetRecordUpdater {
       },
       body: JSON.stringify({
         "values": [
-          [loggingDetails.brandName]
+          [
+            loggingDetails.id,
+            loggingDetails.brandName,
+            loggingDetails.itemType,
+            loggingDetails.modelNumber,
+            loggingDetails.weight
+          ]
         ]
       })
     }).then((response) => {
@@ -41,16 +46,21 @@ export class SpreadsheetRecordUpdater {
       }
       return Promise.reject(response); 
     }).catch((reason) => { 
-      console.log(`
-      Spreadsheet Update Request Failed: ${reason}. 
-      Requesting new access token...
-      `); 
-      localStorage.clear("google-access-token")
-      this.googleAuthclient.requestGoogleAuthentication() 
+      this.handleResponseError(reason)
     })
   }
 
-  buildSheetUrl(row, col, urlSearchParams) {
-    return `${this.apiBaseUrl}/spreadsheets/${this.spreadsheetid}/values/${this.sheetName}!R${row}C${col}:R${row}C${col}?${urlSearchParams.toString()}`
+  buildSheetUrl(row, fromColumn, toColumn, urlSearchParams) {
+    const spreadsheetRange = `${this.sheetName}!R${row}C${fromColumn}:R${row}C${toColumn}`
+    return `${this.apiBaseUrl}/spreadsheets/${this.spreadsheetid}/values/${spreadsheetRange}?${urlSearchParams.toString()}`
+  }
+
+  handleResponseError(reason) {
+    console.log(`
+    Spreadsheet Update Request Failed: ${reason}. 
+    Requesting new access token...
+    `); 
+    localStorage.clear("google-access-token")
+    this.googleAuthclient.requestGoogleAuthentication() 
   }
 }

@@ -35,12 +35,12 @@ export class SpreadsheetRecordFetcher {
   }
 
   findRecordbyId(recordId, rows) {
-    const filteredRows = rows.filter((row) => row[this.idColumnNumber - 1] === recordId);
+    const targetRowIndex = rows.findIndex((row) => row[this.idColumnNumber - 1] === recordId);
 
-    if (filteredRows.length != 0) {
-      const targetRow = filteredRows[0]
+    if (targetRowIndex !== -1) {
+      const targetRow = rows[targetRowIndex]
 
-      return targetRow
+      return [targetRow, targetRowIndex]
     }
   }
 

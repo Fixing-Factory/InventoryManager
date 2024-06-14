@@ -3,7 +3,7 @@ import { ItemDetailsManager } from "../dynamic_content/item_details_manager.js"
 import { LoggingDetailsManager } from "../dynamic_content/logging_details_manager.js"
 import { TestingDetailsManager } from "../dynamic_content/testing_details_manager.js"
 import { WarningMessageManager } from "../dynamic_content/warning_message_manager.js"
-import { SpreadsheetRecordFetcher } from "../fetchers/spreadsheet_record_fetcher.js"
+import { SpreadsheetRecordFetcher } from "../spreadsheet_api/spreadsheet_record_fetcher.js"
 
 export class RecordLoader {
   constructor() {
@@ -16,7 +16,7 @@ export class RecordLoader {
   }
 
   async loadRecordData() {
-    const recordRow = await this.loadRecordRow()
+    const [recordRow, rowIndex] = await this.loadRecordRow()
 
     if (recordRow) {
         this.loggingDetailsManager.populateDetails(recordRow)
@@ -25,6 +25,9 @@ export class RecordLoader {
         this.itemDetailsManager.displayAllDetails()
         this.itemDetailsManager.displayItemDetails()
     }
+
+    // Return the row number in the spreadsheet
+    return rowIndex + 1
   }
 
   async loadRecordRow() {
@@ -32,9 +35,9 @@ export class RecordLoader {
     const recordId = params.get("record-id")
 
     if (recordId) {
-      const recordRow = await this.recordFetcher.loadRecordRow(recordId)
+      const [recordRow, rowIndex] = await this.recordFetcher.loadRecordRow(recordId)
       if (recordRow) {
-        return recordRow
+        return [recordRow, rowIndex]
       } else {
         this.warningMessageManager.displayMessage(`Record with id ${recordId} could not be found!`)
       }
