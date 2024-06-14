@@ -33,7 +33,7 @@ export class GoogleAuthenticationClient {
       pathName = pathName.substring(0, endFileNameStart)
     }
 
-    if (pathName[pathName.length] !== "/"){
+    if (pathName[pathName.length - 1] !== "/"){
       pathName += "/"
     }
 

@@ -24,44 +24,90 @@
   </header>
 
   <nav id="nav">
-    <a onclick="window.location='./'+window.location.search;">Logging</a>
-    <a onclick="window.location='./testing.html'+window.location.search;">Testing</a>
-    <a onclick="window.location='./fixing.html'+window.location.search;">Fixing</a>
+    <a id="logging-button">Logging</a>
+    <a id="testing-button">Testing</a>
+    <a id="fixing-button">Fixing</a>
   </nav>
 
   <dialog id="warning-message" class="disabled"></dialog>
 
-  <main id="item-details" class="disabled">
-    <section>
-      <h2>Inventory Item Identifier</h2>
-      <p id="item-id"></p>
-    </section>
+  <div id = "all-details" class="disabled">
+    <main id="item-details" class="disabled">
+      <section>
+        <h2>Inventory Item Identifier</h2>
+        <p id="item-id"></p>
+      </section>
 
-    <section>
-      <h2>Logged Timestamp</h2>
-      <p id="logged-timestamp"></p>
-    </section>
+      <section>
+        <h2>Logged Timestamp</h2>
+        <p id="logged-timestamp"></p>
+      </section>
 
-    <section>
-      <h2>Brand Name</h2>
-      <p id="brand-name"></p>
-    </section>
+      <section>
+        <h2>Brand Name</h2>
+        <p id="brand-name"></p>
+      </section>
 
-    <section>
-      <h2>Item Type</h2>
-      <p id="item-type"></p>
-    </section>
+      <section>
+        <h2>Item Type</h2>
+        <p id="item-type"></p>
+      </section>
 
-    <section>
-      <h2>Model Number</h2>
-      <p id="model-number"></p>
-    </section>
+      <section>
+        <h2>Model Number</h2>
+        <p id="model-number"></p>
+      </section>
 
-    <section>
-      <h2>Weight</h2>
-      <p id="weight"></p>
-    </section>
-  </main>
+      <section>
+        <h2>Weight</h2>
+        <p id="weight"></p>
+      </section>
+    </main>
+
+    <main id="testing-details" class="disabled">
+      <section>
+        <h2>Testing Status</h2>
+        <p id="testing-status"></p>
+      </section>
+
+      <section>
+        <h2>Testing Notes</h2>
+        <p id="testing-notes"></p>
+      </section>
+
+      <section>
+        <h2>PAT Before Fix</h2>
+        <p id="pat-before"></p>
+      </section>
+    </main>
+
+    <main id="fixing-details" class="disabled">
+      <section>
+        <h2>Name of Fixer</h2>
+        <p id="fixer-name"></p>
+      </section>
+
+      <section>
+        <h2>Fixer Notes</h2>
+        <p id="fixer-notes"></p>
+      </section>
+      
+      <section>
+        <h2>Diagnosis</h2>
+        <p id="diagnosis"></p>
+      </section>
+      
+      <section>
+        <h2>Parts Needed</h2>
+        <p id="parts-needed"></p>
+      </section>
+      
+      <section>
+        <h2>PAT After Fix</h2>
+        <p id="pat-after"></p>
+      </section>
+    </main>
+  </div>
 </body>
 
 </html>

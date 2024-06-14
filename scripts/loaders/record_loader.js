@@ -15,30 +15,15 @@ export class RecordLoader {
     this.itemDetailsManager = new ItemDetailsManager()
   }
 
-  async loadLoggingRecordData() {
+  async loadRecordData() {
     const recordRow = await this.loadRecordRow()
 
     if (recordRow) {
         this.loggingDetailsManager.populateDetails(recordRow)
-        this.itemDetailsManager.display()
-    }
-  }
-
-  async loadTestingRecordData() {
-    const recordRow = await this.loadRecordRow()
-
-    if (recordRow) {
         this.testingDetailsManager.populateDetails(recordRow)
-        this.itemDetailsManager.display()
-    }
-  }
-
-  async loadFixingRecordData() {
-    const recordRow = await this.loadRecordRow()
-
-    if (recordRow) {
         this.fixingDetailsManager.populateDetails(recordRow)
-        this.itemDetailsManager.display()
+        this.itemDetailsManager.displayAllDetails()
+        this.itemDetailsManager.displayItemDetails()
     }
   }
 
