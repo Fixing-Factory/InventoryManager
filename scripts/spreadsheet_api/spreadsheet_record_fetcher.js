@@ -41,7 +41,7 @@ export class SpreadsheetRecordFetcher {
       const targetRow = rows[targetRowIndex]
 
       return [targetRow, targetRowIndex]
-    }
+    } 
   }
 
   buildSheetUrl() {

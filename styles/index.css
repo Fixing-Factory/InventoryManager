@@ -1,12 +1,13 @@
 header {
   font-size: 2.5rem;
-  margin-bottom: 2vh;
-  display: inline;
+    display: inline-block;
+  vertical-align: middle;
 }
 
 h1 {
   font-size: 2.5rem;
   margin: 0vh;
+  display: inline;
 }
 
 nav {
@@ -87,11 +88,20 @@ form {
 
 dialog {
   margin: auto;
-  padding: 5vh 5vw;
   position: relative;
-  background-color: greenyellow;
-  font-size: 3rem;
   text-align: center;
+}
+
+#advisory-dialog {
+  padding: 5vh 5vw;
+  font-size: 3rem;
+  background-color: greenyellow;
+}
+
+#warning-message {
+  display: block;
+  margin: 0;
+  margin: 5vh 0;
 }
 
 .disabled {
@@ -100,4 +110,12 @@ dialog {
 
 .enabled {
   visibility: visible;
+}
+
+#logo-link {
+  background-color: unset;
+}
+
+#logo-container {
+  display: inline-block;
 }

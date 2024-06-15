@@ -6,8 +6,10 @@ async function main() {
   const recordLoader = new RecordLoader()
   const rowIndex = await recordLoader.loadRecordData()
 
-  const editFormManager = new EditFormManager(rowIndex)
-  editFormManager.initialiseForms()
+  if (rowIndex) {
+    const editFormManager = new EditFormManager(rowIndex)
+    editFormManager.initialiseForms()
+  }
 }
 
 main()

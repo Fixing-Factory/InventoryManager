@@ -16,18 +16,18 @@ export class RecordLoader {
   }
 
   async loadRecordData() {
-    const [recordRow, rowIndex] = await this.loadRecordRow()
+    const rowdata = await this.loadRecordRow()
 
-    if (recordRow) {
-        this.loggingDetailsManager.populateDetails(recordRow)
-        this.testingDetailsManager.populateDetails(recordRow)
-        this.fixingDetailsManager.populateDetails(recordRow)
-        this.itemDetailsManager.displayAllForms()
-        this.itemDetailsManager.displayItemDetails()
+    if (rowdata) {
+      const [recordRow, rowIndex] = rowdata
+      this.loggingDetailsManager.populateDetails(recordRow)
+      this.testingDetailsManager.populateDetails(recordRow)
+      this.fixingDetailsManager.populateDetails(recordRow)
+      this.itemDetailsManager.displayAllForms()
+      this.itemDetailsManager.displayItemDetails()
+      // Return the row number in the spreadsheet
+      return rowIndex + 1
     }
-
-    // Return the row number in the spreadsheet
-    return rowIndex + 1
   }
 
   async loadRecordRow() {
@@ -36,8 +36,9 @@ export class RecordLoader {
     document.getElementById("record-id").value = recordId
 
     if (recordId) {
-      const [recordRow, rowIndex] = await this.recordFetcher.loadRecordRow(recordId)
-      if (recordRow) {
+      const rowData = await this.recordFetcher.loadRecordRow(recordId)
+      if (rowData) {
+        const [recordRow, rowIndex] = rowData
         return [recordRow, rowIndex]
       } else {
         this.warningMessageManager.displayMessage(`Record with id ${recordId} could not be found!`)
