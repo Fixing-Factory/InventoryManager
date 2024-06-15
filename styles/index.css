@@ -82,10 +82,12 @@ form {
 }
 
 dialog {
-  display: block;
-  margin: 0;
+  margin: auto;
+  padding: 5vh 5vw;
   position: relative;
-  margin: 5vh 0;
+  background-color: greenyellow;
+  font-size: 3rem;
+  text-align: center;
 }
 
 .disabled {

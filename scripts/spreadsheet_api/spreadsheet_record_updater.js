@@ -1,9 +1,11 @@
 import { GoogleAuthenticationClient } from "../auth/google_authentication_client.js"
 import { LoggingDetails } from "../data/loggingDetails.js"
+import { AdvisoryInfoDialogManager } from "../dynamic_content/advisory_dialog_manager.js"
 
 export class SpreadsheetRecordUpdater {
   constructor() {
     this.googleAuthclient = new GoogleAuthenticationClient()
+    this.advisoryDialogManager = new AdvisoryInfoDialogManager()
     this.spreadsheetid = "1uSLeihD6gNyESoiADu6-P7Pnx3CW-3071OEZRR8dvc4"
     this.sheetName = "CURRENT Regis Road Logging"
     this.apiBaseUrl = "https://sheets.googleapis.com/v4"
@@ -40,6 +42,7 @@ export class SpreadsheetRecordUpdater {
       })
     }).then((response) => {
       if (response.ok) {
+        this.advisoryDialogManager.displayTemporarySuccessMessage("Testing Details Updated!")
         return response.json();
       }
       return Promise.reject(response); 
@@ -75,6 +78,7 @@ export class SpreadsheetRecordUpdater {
       })
     }).then((response) => {
       if (response.ok) {
+        this.advisoryDialogManager.displayTemporarySuccessMessage("Logging Details Updated!")
         return response.json();
       }
       return Promise.reject(response); 
@@ -110,6 +114,7 @@ export class SpreadsheetRecordUpdater {
       })
     }).then((response) => {
       if (response.ok) {
+        this.advisoryDialogManager.displayTemporarySuccessMessage("Fixing Details Updated!")
         return response.json();
       }
       return Promise.reject(response); 
