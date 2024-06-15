@@ -1,4 +1,4 @@
-import { TestingDetailsViewModel } from "../data/testingDetailsViewModel.js"
+import { TestingDetailsViewModel } from "../data/testing_details_view_model.js"
 
 
 export class TestingDetailsManager {

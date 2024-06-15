@@ -1,4 +1,4 @@
-import { FixingDetailsViewModel } from "../data/fixingDetailsViewModel.js"
+import { FixingDetailsViewModel } from "../data/fixing_details_view_model.js"
 
 
 export class FixingDetailsManager {

@@ -1,7 +1,7 @@
-import { TestingDetails } from "../data/testingDetails.js";
-import { LoggingDetails } from "../data/loggingDetails.js";
+import { TestingDetails } from "../data/testing_details.js";
+import { LoggingDetails } from "../data/logging_details.js";
 import { SpreadsheetRecordUpdater } from "../spreadsheet_api/spreadsheet_record_updater.js";
-import { FixingDetails } from "../data/fixingDetails.js";
+import { FixingDetails } from "../data/fixing_details.js";
 
 export class EditFormManager {
   constructor(rowNumber) {

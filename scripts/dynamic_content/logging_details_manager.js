@@ -1,4 +1,4 @@
-import { LoggingDetailsViewModel } from "../data/loggingDetailsViewModel.js"
+import { LoggingDetailsViewModel } from "../data/logging_details_view_model.js"
 
 export class LoggingDetailsManager {
   constructor() {

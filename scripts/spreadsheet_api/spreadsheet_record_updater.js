@@ -1,13 +1,14 @@
 import { GoogleAuthenticationClient } from "../auth/google_authentication_client.js"
 import { AdvisoryInfoDialogManager } from "../dynamic_content/advisory_dialog_manager.js"
+import { SPREADSHEETCONFIG } from "./spreadsheet_properties.js"
 
 export class SpreadsheetRecordUpdater {
   constructor() {
     this.googleAuthclient = new GoogleAuthenticationClient()
     this.advisoryDialogManager = new AdvisoryInfoDialogManager()
-    this.spreadsheetid = "1uSLeihD6gNyESoiADu6-P7Pnx3CW-3071OEZRR8dvc4"
-    this.sheetName = "CURRENT Regis Road Logging"
-    this.apiBaseUrl = "https://sheets.googleapis.com/v4"
+    this.spreadsheetid = SPREADSHEETCONFIG.spreadsheetId
+    this.sheetName = SPREADSHEETCONFIG.sheetName
+    this.apiBaseUrl = SPREADSHEETCONFIG.apiBaseUrl
   }
 
   async updateRecordTestingDetails(tesingDetails, rowNumber) {
