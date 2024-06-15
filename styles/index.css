@@ -64,6 +64,10 @@ input, select, option, textarea, label {
   font-size: 1.25rem;
 }
 
+label {
+  display: block;
+}
+
 input, select {
   max-width: 90vw;
 }
