@@ -1,5 +1,4 @@
 import { GoogleAuthenticationClient } from "../auth/google_authentication_client.js"
-import { LoggingDetails } from "../data/loggingDetails.js"
 import { AdvisoryInfoDialogManager } from "../dynamic_content/advisory_dialog_manager.js"
 
 export class SpreadsheetRecordUpdater {
@@ -9,12 +8,6 @@ export class SpreadsheetRecordUpdater {
     this.spreadsheetid = "1uSLeihD6gNyESoiADu6-P7Pnx3CW-3071OEZRR8dvc4"
     this.sheetName = "CURRENT Regis Road Logging"
     this.apiBaseUrl = "https://sheets.googleapis.com/v4"
-  }
-
-  async testUpdate(){
-    const loggingDetails = new LoggingDetails(123, "Jonesey's", "Train Controller", "Z-1001", "1000000")
-
-    await this.updateRecordLoggingDetails(loggingDetails, 104)
   }
 
   async updateRecordTestingDetails(tesingDetails, rowNumber) {
@@ -56,7 +49,7 @@ export class SpreadsheetRecordUpdater {
       "valueInputOption": "USER_ENTERED",
     }
     const queryParams = new URLSearchParams(params)
-    const request = new Request(this.buildSheetUrl(rowNumber, 2, 6, queryParams))
+    const request = new Request(this.buildSheetUrl(rowNumber, 1, 6, queryParams))
     const accessToken = await this.googleAuthclient.fetchToken()
 
     await fetch(request, {
@@ -68,6 +61,7 @@ export class SpreadsheetRecordUpdater {
       body: JSON.stringify({
         "values": [
           [
+            loggingDetails.timestamp,
             loggingDetails.id,
             loggingDetails.brandName,
             loggingDetails.itemType,

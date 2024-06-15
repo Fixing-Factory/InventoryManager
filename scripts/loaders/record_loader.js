@@ -22,7 +22,7 @@ export class RecordLoader {
         this.loggingDetailsManager.populateDetails(recordRow)
         this.testingDetailsManager.populateDetails(recordRow)
         this.fixingDetailsManager.populateDetails(recordRow)
-        this.itemDetailsManager.displayAllDetails()
+        this.itemDetailsManager.displayAllForms()
         this.itemDetailsManager.displayItemDetails()
     }
 
