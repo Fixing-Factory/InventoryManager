@@ -23,9 +23,7 @@ a {
   margin-top: 1vh;
   cursor: pointer;
   text-align: center;
-  border-width: 1rem;
-  border-style: solid;
-  border-color: var(--secondary-bg-colour);
+  padding: 1vh 1vw;
   flex: 1 0 0;
 }
 
@@ -35,7 +33,6 @@ a:hover {
 
 .active {
   color: var(--primary-bg-colour);
-  background-color: white;
 }
 
 h2 {
