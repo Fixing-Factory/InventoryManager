@@ -24,19 +24,28 @@ export class ItemDetailsManager {
 
   displayItemDetails() {
     this.loggingDetailsEditElement.className = "enabled"
+    this.loggingDetailsButton.className = "active"
     this.testingDetailsEditElement.className = "disabled"
+    this.testingDetailsButton.className = ""
     this.fixingDetailsEditElement.className = "disabled"
+    this.fixingDetailsButton.className = ""
   }
 
   displayTestingDetails() {
     this.loggingDetailsEditElement.className = "disabled"
+    this.loggingDetailsButton.className = ""
     this.testingDetailsEditElement.className = "enabled"
+    this.testingDetailsButton.className = "active"
     this.fixingDetailsEditElement.className = "disabled"
+    this.fixingDetailsButton.className = ""
   }
 
   displayFixingDetails() {
     this.loggingDetailsEditElement.className = "disabled"
+    this.loggingDetailsButton.className = ""
     this.testingDetailsEditElement.className = "disabled"
+    this.testingDetailsButton.className = ""
     this.fixingDetailsEditElement.className = "enabled"
+    this.fixingDetailsButton.className = "active"
   }
 }

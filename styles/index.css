@@ -19,11 +19,13 @@ nav {
 a {
   background-color: var(--secondary-bg-colour);
   border-radius: 2vh;
-  padding: 1vh 1vw;
   margin-right: 1vw;
   margin-top: 1vh;
   cursor: pointer;
   text-align: center;
+  border-width: 1rem;
+  border-style: solid;
+  border-color: var(--secondary-bg-colour);
   flex: 1 0 0;
 }
 
