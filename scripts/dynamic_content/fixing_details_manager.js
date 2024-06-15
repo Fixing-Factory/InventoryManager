@@ -16,6 +16,9 @@ export class FixingDetailsManager {
     this.fixerNotesEdit.value = viewModel.fixerNotes
     this.diagnosisEdit.value = viewModel.diagnosis
     this.partsNeededEdit.value = viewModel.partsNeeded
-    this.patStatusAfterEdit.value = viewModel.patStatusAfterFix
+
+    if (viewModel.patStatusAfterFix) {
+      this.patStatusAfterEdit.value = viewModel.patStatusAfterFix
+    }
   }
 }

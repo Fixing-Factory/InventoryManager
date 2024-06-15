@@ -35,7 +35,7 @@
 
   <dialog id="warning-message" class="disabled"></dialog>
 
-  <div id = "all-forms" class="disabled">
+  <div id = "all-forms" class="disabled" autocomplete="off">
     <form id="logging-details-edit" class="enabled">
       <section>
         <label>Inventory Item Identifier:</label>
@@ -70,7 +70,7 @@
       <button type="submit">Update Item!</button>
     </form>
 
-    <form id="testing-details-edit" class="disabled">
+    <form id="testing-details-edit" class="disabled" autocomplete="off">
       <section>
         <label>Testing Status:</label>
         <select name="testing-status-edit" id="testing-status-edit" type="text">
@@ -96,6 +96,7 @@
           <option value="Pass">Pass</option>
           <option value="Fail">Fail</option>
           <option value="Pass with note">Pass with note</option>
+          <option value="n/a">N/A</option>
           <option value="" selected>Empty</option>
         </select>
       </section>
@@ -104,7 +105,7 @@
     </form>
 
 
-    <form id="fixing-details-edit" class="disabled">
+    <form id="fixing-details-edit" class="disabled" autocomplete="off">
       <section>
         <label>Fixer:</label>
         <input name="fixer-name-edit" id="fixer-name-edit" type="text"/>
@@ -121,6 +122,7 @@
           <option value="Pass">Pass</option>
           <option value="Fail">Fail</option>
           <option value="Pass with note">Pass with note</option>
+          <option value="n/a">N/A</option>
           <option value="" selected>Empty</option>
         </select>
       </section>

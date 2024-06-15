@@ -1,5 +1,5 @@
 export const SPREADSHEETCONFIG = {
-  spreadsheetId: "1uSLeihD6gNyESoiADu6-P7Pnx3CW-3071OEZRR8dvc4",
+  spreadsheetId: "1TPIza3v2-gO0nMV4rHYycTHPyXI_fLhXI2U_VXbL2GM",
   sheetName: "CURRENT Regis Road Logging",
   apiBaseUrl: "https://sheets.googleapis.com/v4"
 }

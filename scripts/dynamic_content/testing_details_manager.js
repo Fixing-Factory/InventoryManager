@@ -10,8 +10,14 @@ export class TestingDetailsManager {
 
   populateDetails(row) {
     const viewModel = new TestingDetailsViewModel(row)
-    this.testingStatusEdit.value = viewModel.testingStatus
+    if (viewModel.testingStatus) {
+      this.testingStatusEdit.value = viewModel.testingStatus
+    }
+    
     this.notesEdit.value = viewModel.notes
-    this.patStatusEdit.value = viewModel.patStatusBeforeFix
+    
+    if (viewModel.patStatusBeforeFix) {
+      this.patStatusEdit.value = viewModel.patStatusBeforeFix
+    }
   }
 }
