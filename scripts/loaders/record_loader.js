@@ -33,6 +33,7 @@ export class RecordLoader {
   async loadRecordRow() {
     const params = new URLSearchParams(location.search.substring(1))
     const recordId = params.get("record-id")
+    document.getElementById("record-id").value = recordId
 
     if (recordId) {
       const [recordRow, rowIndex] = await this.recordFetcher.loadRecordRow(recordId)
