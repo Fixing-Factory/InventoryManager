@@ -1,5 +1,6 @@
 import { GoogleAuthenticationClient } from "../auth/google_authentication_client.js"
 import { AdvisoryInfoDialogManager } from "../dynamic_content/advisory_dialog_manager.js"
+import { WarningMessageManager } from "../dynamic_content/warning_message_manager.js"
 import { SPREADSHEETCONFIG } from "./spreadsheet_properties.js"
 
 export class SpreadsheetRecordUpdater {
@@ -9,6 +10,7 @@ export class SpreadsheetRecordUpdater {
     this.spreadsheetid = SPREADSHEETCONFIG.spreadsheetId
     this.sheetName = SPREADSHEETCONFIG.sheetName
     this.apiBaseUrl = SPREADSHEETCONFIG.apiBaseUrl
+    this.warningMessageManager = new WarningMessageManager()
   }
 
   async updateRecordTestingDetails(tesingDetails, rowNumber) {
@@ -39,9 +41,10 @@ export class SpreadsheetRecordUpdater {
         this.advisoryDialogManager.displayTemporarySuccessMessage("Testing Details Updated!")
         return response.json();
       }
-      return Promise.reject(response); 
-    }).catch((reason) => { 
-      this.handleResponseError(reason)
+      return Promise.reject(response);
+    }).catch(async reason => {
+      const responseText = await reason.text()
+      this.handleResponseError(responseText)
     })
   }
 
@@ -76,9 +79,10 @@ export class SpreadsheetRecordUpdater {
         this.advisoryDialogManager.displayTemporarySuccessMessage("Logging Details Updated!")
         return response.json();
       }
-      return Promise.reject(response); 
-    }).catch((reason) => { 
-      this.handleResponseError(reason)
+      return Promise.reject(response);
+    }).catch(async reason => {
+      const responseText = await reason.text()
+      this.handleResponseError(responseText)
     })
   }
 
@@ -112,9 +116,10 @@ export class SpreadsheetRecordUpdater {
         this.advisoryDialogManager.displayTemporarySuccessMessage("Fixing Details Updated!")
         return response.json();
       }
-      return Promise.reject(response); 
-    }).catch((reason) => { 
-      this.handleResponseError(reason)
+      return Promise.reject(response);
+    }).catch(async reason => {
+      const responseText = await reason.text()
+      this.handleResponseError(responseText)
     })
   }
 
@@ -123,12 +128,16 @@ export class SpreadsheetRecordUpdater {
     return `${this.apiBaseUrl}/spreadsheets/${this.spreadsheetid}/values/${spreadsheetRange}?${urlSearchParams.toString()}`
   }
 
-  handleResponseError(reason) {
-    console.log(`
-    Spreadsheet Update Request Failed: ${reason}. 
+  handleResponseError(text) {
+    this.warningMessageManager.displayMessage(`
+    Spreadsheet Update Request Failed: ${text}. 
     Requesting new access token...
-    `); 
+    `)
+    setTimeout(() => this.requestReauth(), 8000)
+  }
+
+  requestReauth() {
     localStorage.clear("google-access-token")
-    this.googleAuthclient.requestGoogleAuthentication() 
+    this.googleAuthclient.requestGoogleAuthentication()
   }
 }
