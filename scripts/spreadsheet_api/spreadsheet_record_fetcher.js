@@ -4,14 +4,26 @@ import { SPREADSHEETCONFIG } from "./spreadsheet_properties.js"
 export class SpreadsheetRecordFetcher {
   constructor() {
     this.googleAuthclient = new GoogleAuthenticationClient()
-    this.spreadsheetid = SPREADSHEETCONFIG.spreadsheetId
-    this.sheetName = SPREADSHEETCONFIG.sheetName
     this.apiBaseUrl = SPREADSHEETCONFIG.apiBaseUrl
     this.idColumnNumber = 2
   }
 
   async loadRecordRow(recordId) {
-    const request = new Request(this.buildSheetUrl())
+    const regisRows = await this.fetchSpreadsheetRows(SPREADSHEETCONFIG.spreadsheetId, SPREADSHEETCONFIG.regisRoadSheetName)
+    const regisRow = this.findRecordbyId(recordId, regisRows, SPREADSHEETCONFIG.regisRoadSheetName)
+    if (regisRow) {
+      return regisRow
+    }
+
+    const donationRows = await this.fetchSpreadsheetRows(SPREADSHEETCONFIG.spreadsheetId, SPREADSHEETCONFIG.donationSheetName)
+    const donationRow = this.findRecordbyId(recordId, donationRows, SPREADSHEETCONFIG.donationSheetName)
+    if (donationRow) {
+      return donationRow
+    }
+  }
+
+  async fetchSpreadsheetRows(spreadsheetId, sheetName) {
+    const request = new Request(this.buildSheetUrl(spreadsheetId, sheetName))
     const accessToken = await this.googleAuthclient.fetchToken()
 
     request.headers.set("Authorization", `Bearer ${accessToken}`)
@@ -30,22 +42,20 @@ export class SpreadsheetRecordFetcher {
       this.googleAuthclient.requestGoogleAuthentication() 
     })
 
-    const rows = response.values
-
-    return this.findRecordbyId(recordId, rows)
+    return response.values
   }
 
-  findRecordbyId(recordId, rows) {
+  findRecordbyId(recordId, rows, sheetName) {
     const targetRowIndex = rows.findIndex((row) => row[this.idColumnNumber - 1] === recordId);
 
     if (targetRowIndex !== -1) {
       const targetRow = rows[targetRowIndex]
 
-      return [targetRow, targetRowIndex]
+      return [targetRow, targetRowIndex, sheetName]
     } 
   }
 
-  buildSheetUrl() {
-    return `${this.apiBaseUrl}/spreadsheets/${this.spreadsheetid}/values/${this.sheetName}`
+  buildSheetUrl(spreadsheetId, sheetName) {
+    return `${this.apiBaseUrl}/spreadsheets/${spreadsheetId}/values/${sheetName}`
   }
 }

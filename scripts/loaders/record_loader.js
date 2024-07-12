@@ -3,6 +3,7 @@ import { ItemDetailsManager } from "../dynamic_content/item_details_manager.js"
 import { LoggingDetailsManager } from "../dynamic_content/logging_details_manager.js"
 import { TestingDetailsManager } from "../dynamic_content/testing_details_manager.js"
 import { WarningMessageManager } from "../dynamic_content/warning_message_manager.js"
+import { SPREADSHEETCONFIG } from "../spreadsheet_api/spreadsheet_properties.js"
 import { SpreadsheetRecordFetcher } from "../spreadsheet_api/spreadsheet_record_fetcher.js"
 
 export class RecordLoader {
@@ -19,14 +20,26 @@ export class RecordLoader {
     const rowdata = await this.loadRecordRow()
 
     if (rowdata) {
-      const [recordRow, rowIndex] = rowdata
-      this.loggingDetailsManager.populateDetails(recordRow)
-      this.testingDetailsManager.populateDetails(recordRow)
-      this.fixingDetailsManager.populateDetails(recordRow)
-      this.itemDetailsManager.displayAllForms()
-      this.itemDetailsManager.displayItemDetails()
+      const [recordRow, rowIndex, sheetName] = rowdata
+
+      if (sheetName == SPREADSHEETCONFIG.regisRoadSheetName){
+        this.loggingDetailsManager.populateDetails(recordRow)
+        this.testingDetailsManager.populateDonationDetails(recordRow)
+        this.fixingDetailsManager.populateRegisDetails(recordRow)
+        this.itemDetailsManager.displayAllForms()
+        this.itemDetailsManager.displayItemDetails()
+      }
+
+      if (sheetName == SPREADSHEETCONFIG.donationSheetName){
+        this.loggingDetailsManager.populateDetails(recordRow)
+        this.testingDetailsManager.populateDonationDetails(recordRow)
+        this.fixingDetailsManager.populateDonationDetails(recordRow)
+        this.itemDetailsManager.displayAllForms()
+        this.itemDetailsManager.displayItemDetails()
+      }
+
       // Return the row number in the spreadsheet
-      return rowIndex + 1
+      return [rowIndex + 1, sheetName]
     }
   }
 
@@ -38,8 +51,7 @@ export class RecordLoader {
     if (recordId) {
       const rowData = await this.recordFetcher.loadRecordRow(recordId)
       if (rowData) {
-        const [recordRow, rowIndex] = rowData
-        return [recordRow, rowIndex]
+        return rowData
       } else {
         this.warningMessageManager.displayMessage(`Record with id ${recordId} could not be found!`)
       }

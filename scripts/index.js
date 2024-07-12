@@ -4,10 +4,10 @@ import { EditFormManager } from "./dynamic_content/edit_form_manager.js"
 
 async function main() {
   const recordLoader = new RecordLoader()
-  const rowIndex = await recordLoader.loadRecordData()
+  const [rowIndex, sheetName] = await recordLoader.loadRecordData()
 
   if (rowIndex) {
-    const editFormManager = new EditFormManager(rowIndex)
+    const editFormManager = new EditFormManager(rowIndex, sheetName)
     editFormManager.initialiseForms()
   }
 }

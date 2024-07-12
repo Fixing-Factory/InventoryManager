@@ -1,4 +1,4 @@
-import { TestingDetailsViewModel } from "../data/testing_details_view_model.js"
+import { RegisTestingDetailsViewModel, DonationTestingDetailsViewModel } from "../data/testing_details_view_model.js"
 
 
 export class TestingDetailsManager {
@@ -8,8 +8,21 @@ export class TestingDetailsManager {
     this.patStatusEdit = document.getElementById('pat-status-before-edit')
   }
 
-  populateDetails(row) {
-    const viewModel = new TestingDetailsViewModel(row)
+  populateRegisDetails(row) {
+    const viewModel = new RegisTestingDetailsViewModel(row)
+    if (viewModel.testingStatus) {
+      this.testingStatusEdit.value = viewModel.testingStatus
+    }
+    
+    this.notesEdit.value = viewModel.notes
+    
+    if (viewModel.patStatusBeforeFix) {
+      this.patStatusEdit.value = viewModel.patStatusBeforeFix
+    }
+  }
+
+  populateDonationDetails(row) {
+    const viewModel = new DonationTestingDetailsViewModel(row)
     if (viewModel.testingStatus) {
       this.testingStatusEdit.value = viewModel.testingStatus
     }

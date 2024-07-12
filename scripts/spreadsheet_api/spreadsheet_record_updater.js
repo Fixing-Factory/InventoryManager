@@ -8,17 +8,70 @@ export class SpreadsheetRecordUpdater {
     this.googleAuthclient = new GoogleAuthenticationClient()
     this.advisoryDialogManager = new AdvisoryInfoDialogManager()
     this.spreadsheetid = SPREADSHEETCONFIG.spreadsheetId
-    this.sheetName = SPREADSHEETCONFIG.sheetName
     this.apiBaseUrl = SPREADSHEETCONFIG.apiBaseUrl
     this.warningMessageManager = new WarningMessageManager()
   }
+  
+  async updateRecordLoggingDetails(loggingDetails, rowNumber, sheetName) {
+    const values = [
+      loggingDetails.timestamp,
+      loggingDetails.id,
+      loggingDetails.brandName,
+      loggingDetails.itemType,
+      loggingDetails.modelNumber,
+      loggingDetails.weight
+    ]
+    await this.updateDetails(sheetName, rowNumber, values, 1, 6)
+  }
+  
+    async updateRecordTestingDetails(tesingDetails, rowNumber, sheetName) {
+      if (sheetName == SPREADSHEETCONFIG.regisRoadSheetName) {
+        const values = [
+          tesingDetails.testingStatus,
+          tesingDetails.testingNotes,
+          tesingDetails.patStatusBefore
+        ]
+        await this.updateDetails(sheetName, rowNumber, values, 7, 9)
+      } else if (sheetName == SPREADSHEETCONFIG.donationSheetName) {
+        let values = [
+          tesingDetails.testingStatus,
+          tesingDetails.testingNotes,
+        ]
+        await this.updateDetails(sheetName, rowNumber, values, 7, 8)
+        values = [
+          tesingDetails.patStatusBefore
+        ]
+        await this.updateDetails(sheetName, rowNumber, values, 10, 10)
+      }
+    }
+  
+  async updateRecordFixingDetails(fixingDetails, rowNumber, sheetName) {
+    if (sheetName == SPREADSHEETCONFIG.regisRoadSheetName) {
+      const values = 
+      [
+        fixingDetails.patStatusAfterFix,
+        fixingDetails.fixerName
+      ]
+      await this.updateDetails(sheetName, rowNumber, values, 10, 11)
+    } else if (sheetName == SPREADSHEETCONFIG.donationSheetName) {
+      let values =           [
+        fixingDetails.patStatusAfterFix
+      ]
+      await this.updateDetails(sheetName, rowNumber, values, 11, 11)
 
-  async updateRecordTestingDetails(tesingDetails, rowNumber) {
+      values =           [
+        fixingDetails.fixerName
+      ]
+      await this.updateDetails(sheetName, rowNumber, values, 16, 16)
+    }
+  }
+
+  async updateDetails(sheetName, rowNumber, values, rangeStart, rangeEnd) {
     const params = {
       "valueInputOption": "USER_ENTERED",
     }
     const queryParams = new URLSearchParams(params)
-    const request = new Request(this.buildSheetUrl(rowNumber, 7, 9, queryParams))
+    const request = new Request(this.buildSheetUrl(sheetName, rowNumber, rangeStart, rangeEnd, queryParams))
     const accessToken = await this.googleAuthclient.fetchToken()
 
     await fetch(request, {
@@ -29,16 +82,12 @@ export class SpreadsheetRecordUpdater {
       },
       body: JSON.stringify({
         "values": [
-          [
-            tesingDetails.testingStatus,
-            tesingDetails.testingNotes,
-            tesingDetails.patStatusBefore
-          ]
+          values
         ]
       })
     }).then((response) => {
       if (response.ok) {
-        this.advisoryDialogManager.displayTemporarySuccessMessage("Testing Details Updated!")
+        this.advisoryDialogManager.displayTemporarySuccessMessage("Details Updated!")
         return response.json();
       }
       return Promise.reject(response);
@@ -48,83 +97,8 @@ export class SpreadsheetRecordUpdater {
     })
   }
 
-  async updateRecordLoggingDetails(loggingDetails, rowNumber) {
-    const params = {
-      "valueInputOption": "USER_ENTERED",
-    }
-    const queryParams = new URLSearchParams(params)
-    const request = new Request(this.buildSheetUrl(rowNumber, 1, 6, queryParams))
-    const accessToken = await this.googleAuthclient.fetchToken()
-
-    await fetch(request, {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-        "Authorization": `Bearer ${accessToken}`
-      },
-      body: JSON.stringify({
-        "values": [
-          [
-            loggingDetails.timestamp,
-            loggingDetails.id,
-            loggingDetails.brandName,
-            loggingDetails.itemType,
-            loggingDetails.modelNumber,
-            loggingDetails.weight
-          ]
-        ]
-      })
-    }).then((response) => {
-      if (response.ok) {
-        this.advisoryDialogManager.displayTemporarySuccessMessage("Logging Details Updated!")
-        return response.json();
-      }
-      return Promise.reject(response);
-    }).catch(async reason => {
-      const responseText = await reason.text()
-      this.handleResponseError(responseText)
-    })
-  }
-
-  async updateRecordFixingDetails(fixingDetails, rowNumber) {
-    const params = {
-      "valueInputOption": "USER_ENTERED",
-    }
-    const queryParams = new URLSearchParams(params)
-    const request = new Request(this.buildSheetUrl(rowNumber, 10, 14, queryParams))
-    const accessToken = await this.googleAuthclient.fetchToken()
-
-    await fetch(request, {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-        "Authorization": `Bearer ${accessToken}`
-      },
-      body: JSON.stringify({
-        "values": [
-          [
-            fixingDetails.patStatusAfterFix,
-            fixingDetails.fixerName,
-            fixingDetails.fixerNotes,
-            fixingDetails.diagnosis,
-            fixingDetails.partsNeeded
-          ]
-        ]
-      })
-    }).then((response) => {
-      if (response.ok) {
-        this.advisoryDialogManager.displayTemporarySuccessMessage("Fixing Details Updated!")
-        return response.json();
-      }
-      return Promise.reject(response);
-    }).catch(async reason => {
-      const responseText = await reason.text()
-      this.handleResponseError(responseText)
-    })
-  }
-
-  buildSheetUrl(row, fromColumn, toColumn, urlSearchParams) {
-    const spreadsheetRange = `${this.sheetName}!R${row}C${fromColumn}:R${row}C${toColumn}`
+  buildSheetUrl(sheetName, row, fromColumn, toColumn, urlSearchParams) {
+    const spreadsheetRange = `${sheetName}!R${row}C${fromColumn}:R${row}C${toColumn}`
     return `${this.apiBaseUrl}/spreadsheets/${this.spreadsheetid}/values/${spreadsheetRange}?${urlSearchParams.toString()}`
   }
 

@@ -4,8 +4,9 @@ import { SpreadsheetRecordUpdater } from "../spreadsheet_api/spreadsheet_record_
 import { FixingDetails } from "../data/fixing_details.js";
 
 export class EditFormManager {
-  constructor(rowNumber) {
+  constructor(rowNumber, sheetName) {
     this.rowNumber = rowNumber
+    this.sheetName = sheetName
     this.loggingDetailsEditForm = document.getElementById("logging-details-edit")
     this.testingDetailsEditForm = document.getElementById("testing-details-edit")
     this.fixingDetailsEditForm = document.getElementById("fixing-details-edit")
@@ -33,7 +34,7 @@ export class EditFormManager {
 
     const loggingDetails = new LoggingDetails(id, brandName, itemType, modelNumber, weight)
 
-    this.spreadsheetRecordUpdater.updateRecordLoggingDetails(loggingDetails, this.rowNumber)
+    this.spreadsheetRecordUpdater.updateRecordLoggingDetails(loggingDetails, this.rowNumber, this.sheetName)
   }
 
   processTestingEditFormData(event) {
@@ -45,7 +46,7 @@ export class EditFormManager {
 
     const testingDetails = new TestingDetails(testingStatus, testingNotes, patStatusBefore)
 
-    this.spreadsheetRecordUpdater.updateRecordTestingDetails(testingDetails, this.rowNumber)
+    this.spreadsheetRecordUpdater.updateRecordTestingDetails(testingDetails, this.rowNumber, this.sheetName)
   }
 
   processFixingEditFormData(event) {
@@ -59,7 +60,7 @@ export class EditFormManager {
 
     const fixingDetails = new FixingDetails(fixerName, fixerNotes, patStatusAfter, diagnosis, partsNeeded)
 
-    this.spreadsheetRecordUpdater.updateRecordFixingDetails(fixingDetails, this.rowNumber)
+    this.spreadsheetRecordUpdater.updateRecordFixingDetails(fixingDetails, this.rowNumber, this.sheetName)
   }
 
   formSubmit(event) {
